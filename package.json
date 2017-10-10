@@ -1,0 +1,28 @@
+{
+  "name": "object-detection-service",
+  "version": "0.1.0",
+  "description": "Image-based object detection service via darkflow",
+  "main": "index.js",
+  "scripts": {
+    "test": "mocha ./test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@gitlab.com/sertis/object-detection-service.git"
+  },
+  "author": "Thanapat Bhunnachet",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://gitlab.com/sertis/object-detection-service/issues"
+  },
+  "homepage": "https://gitlab.com/sertis/object-detection-service#README",
+  "dependencies": {
+    "body-parser": "^1.18.2",
+    "compression": "^1.7.1",
+    "cookie-parser": "^1.4.3",
+    "express": "^4.16.2",
+    "helmet": "^3.8.2",
+    "jayson": "^2.0.4",
+    "morgan": "^1.9.0"
+  }
+}

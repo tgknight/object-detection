@@ -9,7 +9,7 @@ from darkflow.net.build import TFNet
 def get_full_path(*args):
     return os.path.join(os.getcwd(), *args)
 
-def model_init(cfg_path='yolo.cfg', weights_path='yolo.weights'):
+def model_init(cfg_path='yolo/yolo.cfg', weights_path='yolo/yolo.weights'):
     return TFNet({
         'model': cfg_path,
         'load': weights_path,
@@ -47,9 +47,9 @@ def save_labeled_image(image, path, filtered_results):
 def format_result(results):
     return list(map(lambda result: {result['label']: str(result['confidence'])}, results))
 
-def predict(path, save=False):
+def predict(model, path, save=False):
     image = cv2.imread(path)
-    model = model_init()
+    # model = model_init() # assumed that model is already initialized
     results = model.return_predict(image)
     objects = extract_prediction_result(results, 0.4)
 

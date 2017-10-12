@@ -3,7 +3,7 @@ from werkzeug.serving import run_simple
 
 from jsonrpc import JSONRPCResponseManager, dispatcher
 
-from object_detection import model_init, predict
+from object_detection import model_init, predict, remove_summary_train
 
 model = None
 @dispatcher.add_method
@@ -17,4 +17,5 @@ def application(request):
 
 if __name__ == '__main__':
     model = model_init()
+    remove_summary_train()
     run_simple('localhost', 9000, application)

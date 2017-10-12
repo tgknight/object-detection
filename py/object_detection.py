@@ -1,10 +1,14 @@
-import cv2
-import numpy as np
+import os
+from shutil import rmtree
 import json
 import sys
-import re
-import os
+import cv2
+import numpy as np
 from darkflow.net.build import TFNet
+
+def remove_summary_train():
+    if os.path.exists('summary') & os.path.isdir('summary'):
+        rmtree('summary')
 
 def get_full_path(*args):
     return os.path.join(os.getcwd(), *args)
@@ -18,6 +22,9 @@ def model_init(cfg_path='yolo/yolo.cfg', weights_path='yolo/yolo.weights'):
 
 def extract_prediction_result(results, threshold=0.2):
     return list(filter(lambda result: result['confidence'] >= threshold, results))
+
+def format_result(results):
+    return list(map(lambda result: {result['label']: str(result['confidence'])}, results))
 
 def label_object_in_image(image, filtered_result):
     topleft = filtered_result['topleft']
@@ -44,9 +51,6 @@ def save_labeled_image(image, path, filtered_results):
         label_object_in_image(image, filtered_result)
     cv2.imwrite(get_full_path(*save_path), image)
 
-def format_result(results):
-    return list(map(lambda result: {result['label']: str(result['confidence'])}, results))
-
 def predict(model, path, save=False):
     image = cv2.imread(path)
     # model = model_init() # assumed that model is already initialized
@@ -59,4 +63,5 @@ def predict(model, path, save=False):
     return format_result(objects)
 
 if __name__ == '__main__':
-    print(predict(sys.argv[1], sys.argv[2]))
+    print(predict(model_init(), sys.argv[1], True))
+    remove_summary_train()

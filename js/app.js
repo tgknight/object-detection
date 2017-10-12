@@ -23,7 +23,7 @@ const {
   errorHandler
 } = require('./middleware')
 
-app.use('/static', express.static('prediction'))
+app.use('/result', express.static('prediction'))
 app.post('/', upload, postUpload, sendJSONRpcRequest)
 app.use(errorHandler)
 
